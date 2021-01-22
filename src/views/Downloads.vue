@@ -26,6 +26,7 @@
   import { getAPI } from '../api/axios-base'
   import { mapState } from 'vuex'
   import HotTable from 'vue-handsontable-official'
+
   export default {
     name: 'downloads',
     onIdle () {
@@ -54,9 +55,8 @@
           rowHeaders: [],
           allowInsertColumn: false,
           allowRemoveColumn: false,
-          columnSorting: {
-              indicator: true
-          }
+          autoColumnSize: true,
+          manualColumnResize: true
         }
       }
     },
