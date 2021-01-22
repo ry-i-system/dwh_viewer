@@ -50,12 +50,11 @@ export default new Vuex.Store({
     },
     registerUser (context, data) {
       return new Promise((resolve, reject) => {
-        axiosBase.post('/api/v1/rest-auth/register/', {
-          name: data.name,
-          email: data.email,
+        axiosBase.post('/api/v1/rest-auth/registration/', {
           username: data.username,
-          password: data.password,
-          confirm: data.confirm
+          email: data.email,
+          password1: data.password1,
+          password2: data.password2
         })
           .then(response => {
             resolve(response)

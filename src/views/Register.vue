@@ -1,49 +1,69 @@
 <template>
   <div class="register-form">
     <NavBar></NavBar>
-    <form @submit.prevent="registerUser">
-      <label for="Name">Name</label>
-      <input type="text" name="Name" id="Name" v-model="name">
-      <label for="el">Email</label>
-      <input type="email" name="el" id="el" v-model="email">
-      <label for="ur">Username</label>
-      <input type="text" name="ur" id="ur" v-model="username">
-      <label for="pwr">Password</label>
-      <input type="password" name="pwr" id="pwr" v-model="password">
-      <label for="pass">Password Confirmation</label>
-      <input type="password" name="pass" id="pass" v-model="confirm">
-      <button type="submit">Register</button>
-    </form>
+    <div class="bod">
+      <h1>Register User Form</h1>
+      <div v-if="loading">
+        <Loading></Loading>
+      </div>
+      <div v-else>
+        <h2>Please enter the user information to be registered.</h2>
+        <br>
+        <form @submit.prevent="registerUser">
+          <label for="ur">Username</label>
+          <input type="text" name="ur" id="ur" v-model="username">
+          <label for="el">Email</label>
+          <input type="email" name="el" id="el" v-model="email">
+          <label for="pwr">Password</label>
+          <input type="password" name="pwr" id="pwr" v-model="password1">
+          <label for="pass">Password Confirmation</label>
+          <input type="password" name="pass" id="pass" v-model="password2">
+          <button type="submit">Register</button>
+        </form>
+      </div>
+      <div v-if="registMessage != null">
+        <h3>{{ registMessage }}</h3>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import NavBar from '../components/Navbar'
+  import Loading from '../components/Loading'
   export default {
     name: 'register',
     components: {
-      NavBar
+      NavBar,
+      Loading
     },
     data () {
       return {
-        name: '',
-        email: '',
+        loading: false,
         username: '',
-        password: '',
-        confirm: ''
+        email: '',
+        password1: '',
+        password2: '',
+        registMessage: null
       }
     },
     methods: {
       registerUser () {
+        this.loading = true
         this.$store.dispatch('registerUser', {
-          name: this.name,
-          email: this.email,
           username: this.username,
-          password: this.password,
-          confirm: this.confirm
-        }).then(() => {
-          this.$router.push({ name: 'home' })
+          email: this.email,
+          password1: this.password1,
+          password2: this.password2
         })
+          .then(() => {
+            this.registMessage = 'User registration is complete. ( username : ' + this.username + ' )'
+            this.loading = false
+            this.username = ''
+            this.email = ''
+            this.password1 = ''
+            this.password2 = ''
+          })
       }
     }
   }

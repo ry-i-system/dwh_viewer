@@ -1,9 +1,9 @@
 <template>
   <div class="nav-bar">
     <ul>
+      <li v-if="accessToken!=null"><router-link :to = "{ name:'logout' }">LOGOUT</router-link></li>
       <li v-if="accessToken!==null"><router-link :to = "{ name:'register' }">REGISTER</router-link></li>
       <li v-if="accessToken==null"><router-link :to = "{ name:'login' }">LOGIN</router-link></li>
-      <li v-if="accessToken!=null"><router-link :to = "{ name:'logout' }">LOGOUT</router-link></li>
       <li v-if="accessToken!=null"><router-link :to = "{ name:'downloads' }">DOWNLOADS</router-link></li>
       <li><router-link :to = "{ name:'home' }" exact>HOME</router-link></li>
     </ul>

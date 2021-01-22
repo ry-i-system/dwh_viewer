@@ -25,22 +25,22 @@
       return {
         username: '',
         password: '',
-        wrongCred: false // activates appropriate message if set to true
+        wrongCred: false
       }
     },
     methods: {
-      loginUser () { // call loginUSer action
+      loginUser () {
         this.$store.dispatch('loginUser', {
           username: this.username,
           password: this.password
         })
           .then(() => {
             this.wrongCred = false
-            this.$router.push({ name: 'downloads' })
+            this.$router.push({ name: 'home' })
           })
           .catch(err => {
             console.log(err)
-            this.wrongCred = true // if the credentials were wrong set wrongCred to true
+            this.wrongCred = true
           })
       }
     }
